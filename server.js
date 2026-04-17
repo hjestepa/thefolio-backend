@@ -15,12 +15,9 @@ const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
 
-// PostgreSQL connection is handled in each route file with pool
-// No separate connectDB() needed
-
-// Middleware
+// Middleware - UPDATED CORS FOR PRODUCTION
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://thefolio-frontend-tawny.vercel.app'],
   credentials: true
 }));
 app.use(express.json());
@@ -39,7 +36,7 @@ app.get('/api/test', (req, res) => {
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server is running on http://localhost:${PORT}`);
   console.log(`📝 Test the API at: http://localhost:${PORT}/api/test`);
 });
